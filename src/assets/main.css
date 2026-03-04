@@ -1,0 +1,37 @@
+/* Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Root Variables */
+:root {
+  --app-text: #f1f7fd;
+  --app-content-padding: 1.5rem;
+}
+
+/* Body */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: var(--app-bg);
+  color: var(--app-text);
+  min-height: 100vh;
+}
+
+/* Layout Helpers */
+.app-container {
+  padding: var(--app-content-padding);
+}
+
+/* Router View Wrapper */
+.page-container {
+  padding: 1.5rem;
+}
+
+/* Optional: improve PrimeVue spacing */
+.p-menubar {
+  border-radius: 0;
+}
