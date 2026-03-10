@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import Menubar from 'primevue/menubar'
+import Button from 'primevue/button';
 
 const router = useRouter()
 
@@ -23,6 +24,9 @@ const items = ref([
   <Menubar :model="items">
     <template #start>
       <strong class="ml-2">Blogger</strong>
+    </template>
+    <template #end>
+      <Button label="Login" @click="router.push('/login')" />
     </template>
   </Menubar>
 </template>

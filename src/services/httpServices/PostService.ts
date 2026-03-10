@@ -1,5 +1,5 @@
 import { apiRequest } from '@/utils/httpUtils'
-import { type PostDto } from '@/constants/Dtos/PostType'
+import { type PostDto } from '@/constants/dto/PostType'
 
 export const PostService = {
   getAll() : Promise<PostDto[]> {

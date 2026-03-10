@@ -1,5 +1,5 @@
 import { type AuthorDto } from './AuthorDto'
-import { CategoryEnum } from '../enums/CategoryEnum'
+import { type CategoryDto } from './CategoryDto'
 
 export interface PostDto {
   id: number
@@ -7,6 +7,6 @@ export interface PostDto {
   content: string
   createdAt: string
   updatedAt?: string
-  type: CategoryEnum
+  category: CategoryDto
   author: AuthorDto
 }
