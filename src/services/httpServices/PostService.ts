@@ -1,4 +1,4 @@
-import { apiRequest } from '@/utils/httpUtils'
+import { apiRequest } from '@/utils/ApiUtils'
 import { type PostDto } from '@/constants/dto/PostType'
 
 export const PostService = {

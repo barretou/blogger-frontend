@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useAuthStore } from '@/stores/auth/AuthStore'
 
 import Card from 'primevue/card'
 import InputText from 'primevue/inputtext'
@@ -7,7 +8,9 @@ import Password from 'primevue/password'
 import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
 
-const email = ref('author@email.com')
+const authStore = useAuthStore()
+
+const email = ref('gustavobarreto@email.com')
 const password = ref('')
 
 const registerName = ref('')
@@ -16,11 +19,15 @@ const registerPassword = ref('')
 
 const showRegister = ref(false)
 
-const login = () => {
-  console.log('Login', email.value, password.value)
+const LoginUser = async () => {
+  try{
+    await authStore.login({ email: email.value, password: password.value })
+  } catch (error) {
+    console.error('Login failed:', error)
+  }
 }
 
-const createUser = () => {
+const CreateUser = async () => {
   console.log('Create user', {
     name: registerName.value,
     email: registerEmail.value,
@@ -56,7 +63,7 @@ const createUser = () => {
             label="Login"
             icon="pi pi-sign-in"
             class="w-full"
-            @click="login"
+            @click="LoginUser"
           />
 
           <Button
@@ -72,7 +79,6 @@ const createUser = () => {
 
     </Card>
 
-    <!-- REGISTER DIALOG -->
     <Dialog
       v-model:visible="showRegister"
       modal
@@ -100,7 +106,7 @@ const createUser = () => {
           label="Registrar"
           icon="pi pi-check"
           class="w-full"
-          @click="createUser"
+          @click="CreateUser"
         />
 
       </div>
