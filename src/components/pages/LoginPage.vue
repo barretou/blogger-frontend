@@ -7,8 +7,10 @@ import InputText from 'primevue/inputtext'
 import Password from 'primevue/password'
 import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
+import { useToastStore } from '@/stores/toast/ToastStore'
 
 const authStore = useAuthStore()
+const toast = useToastStore()
 
 const email = ref('gustavobarreto@email.com')
 const password = ref('')
@@ -22,10 +24,11 @@ const showRegister = ref(false)
 const LoginUser = async () => {
   try{
     await authStore.login({ email: email.value, password: password.value })
-  } catch (error) {
-    console.error('Login failed:', error)
+    toast.success()
+  } catch (e: unknown) {
+    toast.error(e)
+    }
   }
-}
 
 const CreateUser = async () => {
   console.log('Create user', {
