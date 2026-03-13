@@ -1,51 +1,60 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 import { useAuthStore } from '@/stores/auth/AuthStore'
+import { useToastStore } from '@/stores/toast/ToastStore'
+import { useRouter } from 'vue-router'
+import { AuthorService } from '@/services/httpServices/AuthorService'
 
 import Card from 'primevue/card'
 import InputText from 'primevue/inputtext'
 import Password from 'primevue/password'
 import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
-import { useToastStore } from '@/stores/toast/ToastStore'
-import { useRouter } from 'vue-router'
 
 const authStore = useAuthStore()
 const router = useRouter()
 const toast = useToastStore()
 
-const email = ref('gustavobarreto@email.com')
-const password = ref('')
+const showRegisterDialog = ref(false)
 
-const registerName = ref('')
-const registerEmail = ref('')
-const registerPassword = ref('')
+const loginForm = reactive({
+  email: '',
+  password: ''
+})
 
-const showRegister = ref(false)
+const registerForm = reactive({
+  name: 'Joao da Silva',
+  email: 'exemplo@email.com',
+  password: ''
+})
 
-const LoginUser = async () => {
-  try{
-    await authStore.login({ email: email.value, password: password.value })
+const LoginAuthor = async () => {
+  try {
+    await authStore.login(loginForm)
     toast.success()
-    router.push('/tools')
+    router.push('/posts')
   } catch (e: unknown) {
     toast.error(e)
-    }
   }
+}
 
-const CreateUser = async () => {
-  console.log('Create user', {
-    name: registerName.value,
-    email: registerEmail.value,
-    password: registerPassword.value
-  })
+const CreateAuthor = async () => {
+  try {
+    await AuthorService.create(registerForm)
+    toast.success('Conta criada com sucesso!')
+  } catch (e: unknown) {
+    toast.error(e)
+  }
+  finally {
+    showRegisterDialog.value = false
+  }
+  console.log('Create author', registerForm)
 }
 </script>
 
 <template>
   <div class="flex align-items-center justify-content-center min-h-screen surface-ground">
 
-    <!-- LOGIN CARD -->
     <Card style="width: 25rem">
 
       <template #title>
@@ -57,19 +66,19 @@ const CreateUser = async () => {
 
           <div class="flex flex-column gap-2">
             <label>Email</label>
-            <InputText v-model="email" />
+            <InputText v-model="loginForm.email" />
           </div>
 
           <div class="flex flex-column gap-2">
             <label>Password</label>
-            <Password v-model="password" :feedback="false" toggleMask />
+            <Password v-model="loginForm.password" :feedback="false" toggleMask />
           </div>
 
           <Button
             label="Login"
             icon="pi pi-sign-in"
             class="w-full"
-            @click="LoginUser"
+            @click="LoginAuthor"
           />
 
           <Button
@@ -77,7 +86,7 @@ const CreateUser = async () => {
             icon="pi pi-user-plus"
             severity="secondary"
             class="w-full"
-            @click="showRegister = true"
+            @click="showRegisterDialog = true"
           />
 
         </div>
@@ -86,7 +95,7 @@ const CreateUser = async () => {
     </Card>
 
     <Dialog
-      v-model:visible="showRegister"
+      v-model:visible="showRegisterDialog"
       modal
       header="Criar conta"
       :style="{ width: '25rem' }"
@@ -95,24 +104,24 @@ const CreateUser = async () => {
 
         <div class="flex flex-column gap-2">
           <label>Name</label>
-          <InputText v-model="registerName" />
+          <InputText v-model="registerForm.name" />
         </div>
 
         <div class="flex flex-column gap-2">
           <label>Email</label>
-          <InputText v-model="registerEmail" />
+          <InputText v-model="registerForm.email" />
         </div>
 
         <div class="flex flex-column gap-2">
           <label>Password</label>
-          <Password v-model="registerPassword" toggleMask :feedback="false" />
+          <Password v-model="registerForm.password" toggleMask :feedback="false" />
         </div>
 
         <Button
           label="Registrar"
           icon="pi pi-check"
           class="w-full"
-          @click="CreateUser"
+          @click="CreateAuthor"
         />
 
       </div>
