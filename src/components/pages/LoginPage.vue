@@ -8,8 +8,10 @@ import Password from 'primevue/password'
 import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
 import { useToastStore } from '@/stores/toast/ToastStore'
+import { useRouter } from 'vue-router'
 
 const authStore = useAuthStore()
+const router = useRouter()
 const toast = useToastStore()
 
 const email = ref('gustavobarreto@email.com')
@@ -25,6 +27,7 @@ const LoginUser = async () => {
   try{
     await authStore.login({ email: email.value, password: password.value })
     toast.success()
+    router.push('/tools')
   } catch (e: unknown) {
     toast.error(e)
     }
