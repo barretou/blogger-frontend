@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import Card from 'primevue/card'
 import Tag from 'primevue/tag'
+import Button from 'primevue/button';
 import { type PostDto } from '@/constants/dto/PostType'
 import { CategoryEnum } from '@/constants/enums/CategoryEnum'
+import { useAuthStore } from '@/stores/auth/AuthStore';
 
-
+const authStore = useAuthStore()
 
 defineProps<{
   post: PostDto
@@ -25,7 +27,28 @@ const getTagSeverity = (type: number) => {
 <template>
   <Card class="mb-3">
     <template #title>
-      <h1>{{ post.title }}</h1>
+      <div class="flex justify-content-between align-items-center">
+        <h1>{{ post.title }}</h1>
+
+        <div v-if="authStore.isAuthenticated" class="controls flex gap-2">
+          <Button
+            icon="pi pi-pencil"
+            variant="text"
+            rounded
+            aria-label="Edit post"
+            v-tooltip.top="'Edit post'"
+          />
+
+          <Button
+            icon="pi pi-trash"
+            variant="text"
+            rounded
+            severity="danger"
+            aria-label="Delete post"
+            v-tooltip.top="'Delete post'"
+          />
+        </div>
+      </div>
     </template>
 
     <template #subtitle>

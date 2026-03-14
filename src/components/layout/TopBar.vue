@@ -8,8 +8,6 @@ import { useAuthStore } from '@/stores/auth/AuthStore'
 const router = useRouter()
 const authStore = useAuthStore()
 
-const isLoggedIn = computed(() => authStore.isAuthenticated)
-
 const items = computed(() => {
   const baseItems = [
     {
@@ -19,7 +17,7 @@ const items = computed(() => {
     }
   ]
 
-  if (isLoggedIn.value) {
+  if (authStore.isAuthenticated) {
     baseItems.push({
       label: 'Gerenciar Posts',
       icon: 'pi pi-info-circle',
@@ -31,7 +29,7 @@ const items = computed(() => {
 })
 
 const HandleLoginClick = () => {
-  if (isLoggedIn.value) {
+  if (authStore.isAuthenticated) {
     authStore.logout()
     router.push('/login')
   } else {
@@ -48,8 +46,8 @@ const HandleLoginClick = () => {
 
     <template #end>
       <Button 
-        :label="isLoggedIn ? 'Logout' : 'Login'"
-        :severity="isLoggedIn? 'secondary' : 'primary'"
+        :label="authStore.isAuthenticated ? 'Logout' : 'Login'"
+        :severity="authStore.isAuthenticated? 'secondary' : 'primary'"
         @click="HandleLoginClick"
       />
     </template>
