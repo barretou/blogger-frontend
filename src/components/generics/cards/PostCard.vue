@@ -12,7 +12,7 @@ defineProps<{
   post: PostDto
 }>()
 
-const getTagSeverity = (type: number) => {
+const GetTagSeverity = (type: number) => {
   switch(type) {
     case CategoryEnum.Frontend: return 'success'
     case CategoryEnum.Backend: return 'info'
@@ -53,7 +53,7 @@ const getTagSeverity = (type: number) => {
 
     <template #subtitle>
       <span class="text-color-secondary my-2">
-        Por {{ post.author.name }} |
+        Autor: {{ post.author.name }} |
         Postado: {{ new Date(post.createdAt).toLocaleString() }}
         <span v-if="post.updatedAt">
           | Atualizado: {{ new Date(post.updatedAt).toLocaleString() }}
@@ -63,7 +63,7 @@ const getTagSeverity = (type: number) => {
 
     <template #content>
       <div class="my-2 flex align-items-center gap-2">
-        <Tag :value="post.category.name" :severity="getTagSeverity(post.category.type)" />
+        <Tag :value="post.category.name" :severity="GetTagSeverity(post.category.type)" />
       </div>
 
       <p class="mt-2">

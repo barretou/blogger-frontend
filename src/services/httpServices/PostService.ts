@@ -9,14 +9,14 @@ export const PostService = {
     })
   },
 
-  getById(id: number) {
+  getById(id: number): Promise<PostDto> {
     return apiRequest({
       method: 'GET',
       url: `/post/${id}`
     })
   },
 
-  create(data: unknown) {
+  create(data: unknown): Promise<PostDto> {
     return apiRequest({
       method: 'POST',
       url: '/post',
@@ -24,7 +24,7 @@ export const PostService = {
     })
   },
 
-  update(id: number, data: unknown) {
+  update(id: number, data: unknown): Promise<PostDto> {
     return apiRequest({
       method: 'PUT',
       url: `/post/${id}`,
@@ -32,7 +32,7 @@ export const PostService = {
     })
   },
 
-  delete(id: number) {
+  delete(id: number): Promise<void> {
     return apiRequest({
       method: 'DELETE',
       url: `/post/${id}`

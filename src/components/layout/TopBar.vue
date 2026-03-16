@@ -12,16 +12,16 @@ const items = computed(() => {
   const baseItems = [
     {
       label: 'Posts',
-      icon: 'pi pi-home',
+      icon: 'pi pi-book',
       command: () => router.push('/')
     }
   ]
 
   if (authStore.isAuthenticated) {
     baseItems.push({
-      label: 'Gerenciar Posts',
-      icon: 'pi pi-info-circle',
-      command: () => router.push('/tools')
+      label: 'Autores',
+      icon: 'pi pi-users',
+      command: () => router.push('/authors')
     })
   }
 

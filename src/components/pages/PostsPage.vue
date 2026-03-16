@@ -1,25 +1,18 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted } from 'vue'
 import PostCard from '@/components/generics/cards/PostCard.vue'
 import Skeleton from 'primevue/skeleton';
-import { PostService } from '@/services/httpServices/PostService'
-import { type PostDto } from '@/constants/dto/PostType'
 import { useToastStore } from '@/stores/toast/ToastStore'
+import { usePostStore } from '@/stores/post/PostStore';
 
 const toast = useToastStore()
+const postStore = usePostStore()
 
-const posts = ref<PostDto[]>([])
-const isLoading = ref(false)
 const getPosts = async () => {
   try {
-    isLoading.value = true
-    const postsData = await PostService.getAll()
-    posts.value = postsData
+    await postStore.fetchPosts();
   } catch (e: unknown) {
     toast.error(e)
-  }
-  finally {
-    isLoading.value = false
   }
 }
 
@@ -30,13 +23,13 @@ onMounted(async () => {
 
 <template>
   <div>
-    <template v-if="isLoading">
+    <template v-if="postStore.isPostsLoading">
       <Skeleton height="2rem" class="mb-2"></Skeleton>
       <Skeleton height="2rem" class="mb-2"></Skeleton>
       <Skeleton height="2rem" class="mb-2"></Skeleton>
     </template>
     <template v-else>
-      <PostCard v-for="post in posts" :key="post.id" :post="post" />
+      <PostCard v-for="post in postStore.posts" :key="post.id" :post="post" />
     </template>
   </div>
 </template>
