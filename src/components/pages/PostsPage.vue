@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import PostCard from '@/components/generics/cards/PostCard.vue'
-import Skeleton from 'primevue/skeleton';
 import { useToastStore } from '@/stores/toast/ToastStore'
 import { usePostStore } from '@/stores/post/PostStore';
+
+import PostCard from '@/components/generics/cards/PostCard.vue'
+import Skeleton from 'primevue/skeleton';
 
 const toast = useToastStore()
 const postStore = usePostStore()
@@ -17,7 +18,9 @@ const getPosts = async () => {
 }
 
 onMounted(async () => {
-  await getPosts()
+  if (!postStore.posts.length) {
+    await getPosts()
+  }
 })
 </script>
 

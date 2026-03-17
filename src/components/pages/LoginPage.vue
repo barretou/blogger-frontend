@@ -32,7 +32,7 @@ const LoginAuthor = async () => {
   try {
     await authStore.login(loginForm)
     toast.success()
-    router.push('/posts')
+    router.push('/')
   } catch (e: unknown) {
     toast.error(e)
   }
@@ -48,7 +48,6 @@ const CreateAuthor = async () => {
   finally {
     showRegisterDialog.value = false
   }
-  console.log('Create author', registerForm)
 }
 </script>
 
@@ -58,14 +57,14 @@ const CreateAuthor = async () => {
     <Card style="width: 25rem">
 
       <template #title>
-        Bem vindo ao blogger!
+        <p class="mb-2">Gerencie seus posts e interaja com outros autores.</p>
       </template>
 
       <template #content>
         <div class="flex flex-column gap-3">
 
           <div class="flex flex-column gap-2">
-            <label>Email</label>
+            <label>Email do autor</label>
             <InputText v-model="loginForm.email" />
           </div>
 

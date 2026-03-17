@@ -156,8 +156,6 @@ const GetTagSeverity = (type: number) => {
     </template>
   </Card>
 
-  <!-- EDIT DIALOG -->
-
   <Dialog
     v-model:visible="editDialog"
     modal
