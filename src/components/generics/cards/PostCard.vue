@@ -5,8 +5,10 @@ import Button from 'primevue/button';
 import { type PostDto } from '@/constants/dto/PostType'
 import { CategoryEnum } from '@/constants/enums/CategoryEnum'
 import { useAuthStore } from '@/stores/auth/AuthStore';
+import { usePostStore } from '@/stores/post/PostStore';
 
 const authStore = useAuthStore()
+const postStore = usePostStore()
 
 defineProps<{
   post: PostDto
@@ -22,6 +24,14 @@ const GetTagSeverity = (type: number) => {
     case CategoryEnum.Database: return 'contrast'
   }
 }
+
+const DeletePost = async (id: number) => {
+  try {
+    await postStore.deletePost(id)
+  } catch (e: unknown) {
+    console.error(e)
+  }
+} 
 </script>
 
 <template>
@@ -46,6 +56,7 @@ const GetTagSeverity = (type: number) => {
             severity="danger"
             aria-label="Delete post"
             v-tooltip.top="'Delete post'"
+            @click="DeletePost(post.id)"
           />
         </div>
       </div>
