@@ -1,0 +1,36 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+---
+
+## [1.3.0] - 2026-03-18
+### Added
+- Login pages
+- Store module to handle login
+
+### Changed
+- Improved layout to enable features when author is logged
+
+### Fixed
+- Service post to update posts
+
+---
+
+## [1.2.0] - 2026-03-10
+### Added
+- Global toas with store management
+- ApiUtils with axios instance reusable
+- Service to posts and authors with your respective methods
+
+### Fixed
+- Fix request model to create authors
+- Fix posta pages layout
+
+---
+
+## [1.1.0] - 2026-03-01
+### Added
+- Initial pages created
+- Pinia 4 config
+- Initial assets

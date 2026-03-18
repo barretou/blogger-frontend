@@ -2,7 +2,6 @@
 import { reactive, ref, onMounted } from 'vue'
 import { useAuthorStore } from '@/stores/author/AuthorStore'
 import { useToastStore } from '@/stores/toast/ToastStore'
-import { type AuthorDto } from '@/constants/dto/AuthorDto'
 
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
@@ -15,7 +14,6 @@ const authorStore = useAuthorStore()
 const toast = useToastStore()
 
 const dialogVisible = ref(false)
-const editingAuthor = ref<AuthorDto | null>(null)
 
 const form = reactive({
   name: '',
@@ -36,32 +34,17 @@ function OpenNewAuthorDialog() {
   form.email = 'ex: novo_autor@email.com'
   form.password = ''
 
-  editingAuthor.value = null
-  dialogVisible.value = true
-}
-
-function EditAuthor(author: AuthorDto) {
-  form.name = author.name
-  form.email = author.email
-  form.password = ''
-
-  editingAuthor.value = author
   dialogVisible.value = true
 }
 
 async function SaveAuthor() {
   try {
-    if (editingAuthor.value) {
-      console.warn('Update not implemented yet')
-    } else {
-      await authorStore.createAuthor({
-        name: form.name,
-        email: form.email,
-        password: form.password
-      })
-
-      toast.success('Autor criado com sucesso!')
-    }
+    await authorStore.createAuthor({
+      name: form.name,
+      email: form.email,
+      password: form.password
+    })
+    toast.success('Autor criado com sucesso!')
   } catch (e) {
     toast.error(e)
   } finally {
@@ -97,7 +80,6 @@ async function DeleteAuthor(id: number) {
 
       <Column header="Ações">
         <template #body="{ data }">
-          <Button icon="pi pi-pencil" text @click="EditAuthor(data)" />
           <Button
             icon="pi pi-trash"
             text
@@ -120,7 +102,7 @@ async function DeleteAuthor(id: number) {
           <InputText v-model="form.email" />
         </div>
 
-        <div class="field" v-if="!editingAuthor">
+        <div class="field">
           <label class="mr-2">Senha</label>
           <InputText v-model="form.password" type="password" />
         </div>
