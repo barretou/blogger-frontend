@@ -1,6 +1,6 @@
 # 🎨 Frontend Application
 
-A modern frontend application built to interact with the API, providing features for managing posts, authors, and user authentication.
+A modern frontend application built (with vue 3, pinia, primevue 4) to interact with the API, providing features for managing posts, authors, and user authentication.
 
 ---
 
