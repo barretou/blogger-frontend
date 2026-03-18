@@ -1,48 +1,59 @@
-# blogger-frontend
+# 🎨 Frontend Application
 
-This template should help get you started developing with Vue 3 in Vite.
+A modern frontend application built to interact with the API, providing features for managing posts, authors, and user authentication.
 
-## Recommended IDE Setup
+---
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+# 🚀 Features
 
-## Recommended Browser Setup
+- 🔐 Login system with state management  
+- 📝 Posts management (create, update, view)  
+- 👤 Authors management  
+- 🌐 Global API integration with reusable utilities  
+- 🔔 Global toast notifications  
+- 🧠 State management using Pinia  
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+---
 
-## Type Support for `.vue` Imports in TS
+# 🔐 Authentication
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+The frontend includes a complete login flow integrated with the backend.
 
-## Customize configuration
+## ✔️ Features
+- Login page
+- Centralized authentication store
+- Conditional UI based on authenticated user
+- Secure API request handling
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+---
 
-## Project Setup
+# 🧠 State Management
 
-```sh
-npm install
-```
+This project uses **Pinia** for state management.
 
-### Compile and Hot-Reload for Development
+## ✔️ Stores
+- Authentication store (login handling)
+- Toast/notification store
+- Global state modules
 
-```sh
-npm run dev
-```
+---
 
-### Type-Check, Compile and Minify for Production
+# 🌐 API Integration
 
-```sh
-npm run build
-```
+- Centralized API handling using **Axios**
+- Reusable API utility module
+- Dedicated services for:
+  - Posts
+  - Authors
 
-### Lint with [ESLint](https://eslint.org/)
+---
 
-```sh
-npm run lint
-```
+# 🎨 UI & Layout
+
+- Responsive layout
+- Conditional rendering based on authentication
+- Improved structure for scalability
+
+---
+
+# 📦 Project Structure (Simplified)
