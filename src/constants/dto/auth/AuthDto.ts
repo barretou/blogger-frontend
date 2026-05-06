@@ -5,4 +5,5 @@ export interface AuthRequestDto {
 
 export interface AuthResponseDto {
   token: string
+  userId: number
 }

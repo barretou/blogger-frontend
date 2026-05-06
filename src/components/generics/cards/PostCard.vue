@@ -1,6 +1,6 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import Card from 'primevue/card'
 import Tag from 'primevue/tag'
 import Button from 'primevue/button'
@@ -43,12 +43,16 @@ const form = reactive({
   category: null as { name: string; type: CategoryEnum } | null
 })
 
+const isTheSameAuthor = computed(() => {
+  return authStore.userId === props.post.author.id
+})
+
 const OpenEditDialog = () => {
   Object.assign(form, {
     id: props.post.id,
     title: props.post.title,
     content: props.post.content,
-    authorId: props.post.author.id,
+    authorId: authStore.userId,
     category: categoryOptions.find(
       c => c.type === props.post.category.type
     ) || null
@@ -76,10 +80,21 @@ const UpdatePost = async () => {
     })
 
     toast.success('Post atualizado com sucesso!')
-    editDialog.value = false
   } catch (e: unknown) {
     toast.error(e)
   }
+  finally {
+    editDialog.value = false
+    ResetForm()
+  }
+}
+
+const ResetForm = () => {
+  form.id = 0
+  form.title = ''
+  form.content = ''
+  form.authorId = 0
+  form.category = null
 }
 
 const DeletePost = async (id: number) => {
@@ -109,7 +124,7 @@ const GetTagSeverity = (type: number) => {
       <div class="flex justify-content-between align-items-center">
         <h1>{{ post.title }}</h1>
 
-        <div v-if="authStore.isAuthenticated" class="flex gap-2">
+        <div v-if="authStore.isAuthenticated && isTheSameAuthor" class="flex gap-2">
           <Button
             icon="pi pi-pencil"
             variant="text"
